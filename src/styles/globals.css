@@ -1,27 +1,54 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono',
+		'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono',
+		'Droid Sans Mono', 'Courier New', monospace;
+	--primary-colorb: #3aafff;
+	--secondary-colorp: #a55fef;
+	--secondary-coloro: #ff8811;
+	--secondary-colory: #fddf50;
+	--main-color: #0a2f4d;
+	--hover-color: #ff8c00;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	max-width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+	background-image: radial-gradient(circle at top left, var(--primary-colorb), transparent),
+		radial-gradient(circle at bottom right, var(--secondary-colorp), transparent),
+		linear-gradient(to bottom, var(--secondary-coloro), var(--secondary-colory));
+	background-blend-mode: screen;
+	color: var(--main-color);
+}
+
+#__next {
+	height: 100%;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+a:hover {
+	color: var(--hover-color);
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		--main-color: #fff7d0;
+		--hover-color: #ffd700;
+	}
+	html {
+		color-scheme: dark;
+	}
+	html,
+	body {
+		background-blend-mode: inherit;
+	}
 }
