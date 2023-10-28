@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+          app:
+                    container_name: nextts
+                    build:
+                              context: .
+                    ports:
+                              - '4000:4000'
+                    environment:
+                              - GITHUB_TOKEN=${GITHUB_TOKEN}
+                    env_file:
+                              - ./.env
