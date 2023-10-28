@@ -1,5 +1,8 @@
 import { ReactNode } from 'react';
 
 export interface LayoutProps {
-	children: ReactNode;
+	children?: ReactNode;
+	containerClassName?: String;
+	contentClassName?: String;
+	sectionClassName?: String;
 }
