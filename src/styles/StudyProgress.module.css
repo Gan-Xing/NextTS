@@ -1,0 +1,50 @@
+.studyProgressContainer {
+	background: rgba(255, 255, 255, 0.1); /* 您可以根据您的背景颜色进行调整 */
+	backdrop-filter: blur(10px); /* 毛玻璃效果 */
+	border-radius: 10px;
+	padding: 20px;
+	font-size: 16px; /* 调整为合适的大小 */
+	width: 100%;
+	margin: 20px;
+}
+
+.title {
+	/* 新增的类名 */
+	font-size: 24px;
+}
+
+.searchBox {
+	width: 100%;
+	padding: 10px;
+	border-radius: 8px;
+	border: 1px solid var(--primary-colorb); /* 使用您的全局颜色 */
+	margin-bottom: 20px;
+	background-color: rgba(255, 255, 255, 0.1); /* 淡透明背景 */
+	backdrop-filter: blur(8px); /* 毛玻璃效果 */
+	color: var(--main-color); /* 使用您的主颜色 */
+	transition: border-color 0.3s; /* 平滑的过渡效果 */
+}
+
+.searchBox:focus {
+	border-color: var(--secondary-colorp); /* 当输入框聚焦时的颜色 */
+	outline: none; /* 删除默认的轮廓 */
+}
+
+.commitList {
+	/* 新增的类名 */
+	list-style-type: none;
+	padding: 0;
+}
+
+.commitBox {
+	background: rgba(255, 255, 255, 0.1); /* 再次使用毛玻璃效果 */
+	backdrop-filter: blur(5px);
+	border-radius: 8px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.commitBox a {
+	color: #333; /* 调整为合适的颜色 */
+	text-decoration: none;
+}
