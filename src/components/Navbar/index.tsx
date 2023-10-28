@@ -3,8 +3,9 @@ import NavList from '@/components/Navbar/NavList';
 import styles from '@/styles/Navbar.module.css';
 import { useState } from 'react';
 import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
+import { NavLinkProps } from '@/types';
 
-const navLinks = [
+const navLinks: NavLinkProps[] = [
 	{
 		component: 'Home',
 		url: '/'
@@ -55,9 +56,7 @@ const Navbar = () => {
 			<div className={styles.navbarContainer}>
 				<NavLogo />
 				<NavList navLinks={navLinks} isVisible={isNavListVisible} />
-				<div
-					className={ styles.hamburger }
-					onClick={toggleNavList}>
+				<div className={styles.hamburger} onClick={toggleNavList}>
 					<FaBars />
 				</div>
 			</div>

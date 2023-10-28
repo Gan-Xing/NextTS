@@ -1,7 +1,9 @@
 import NavLink from './NavLink';
 import styles from '@/styles/Navbar.module.css';
+import { NavListProps } from '@/types';
+import { FunctionComponent } from 'react';
 
-const NavList = ({ navLinks, isVisible }) => {
+const NavList: FunctionComponent<NavListProps> = ({ navLinks, isVisible }) => {
 	return (
 		<div
 			className={`${styles.navList} ${
