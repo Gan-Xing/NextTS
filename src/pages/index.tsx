@@ -3,7 +3,9 @@ import Layout from '@/components/Layout';
 const Home = () => {
 	return (
 		<>
-			<Layout>主页</Layout>
+			<Layout>
+				<h2>主页</h2>
+			</Layout>
 		</>
 	);
 };

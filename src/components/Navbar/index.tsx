@@ -23,12 +23,12 @@ const navItems: NavItemProps[] = [
 		url: '/projects'
 	},
 	{
-		component: 'Blog',
-		url: '/blog'
+		component: 'Insights',
+		url: '/insights'
 	},
 	{
-		component: 'Resource',
-		url: '/resource'
+		component: 'Resources',
+		url: '/resources'
 	},
 	{
 		component: 'About',
