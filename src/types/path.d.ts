@@ -4,15 +4,20 @@ export interface MilestoneData {
 	id: number;
 	label: string;
 	slug: string;
+	commits: string[];
 }
 export interface MilestoneProps {
 	label: string;
 	slug: string;
-	showArrow: boolean;
+	commitsUrls: string[];
 }
 
 export interface LogimateProps extends SlugProps {
-	commits: any[];
+	commits: CommitProps[];
+}
+
+export interface pathSlugProps extends SlugProps {
+	commits: CommitProps[];
 }
 
 export interface CommitProps {
@@ -27,6 +32,12 @@ export interface CommitProps {
 	html_url: string; // 链接到GitHub上的具体commit
 }
 
-export interface StudyProgressProps {
+export interface StudyProgressProps extends SlugProps {
 	commits?: CommitProps[];
 }
+
+export interface StudyContentProps extends SlugProps {}
+
+export interface StudyPlanProps extends SlugProps {}
+
+export interface StudySummaryProps extends SlugProps {}

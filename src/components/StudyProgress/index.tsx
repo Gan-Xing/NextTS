@@ -2,7 +2,7 @@ import styles from '@/styles/StudyProgress.module.css';
 import { useState } from 'react';
 import { StudyProgressProps } from '@/types';
 
-const StudyProgress: React.FC<StudyProgressProps> = ({ commits }) => {
+const StudyProgress: React.FC<StudyProgressProps> = ({ slug, commits }) => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const filteredCommits = commits?.filter((commit) =>
@@ -11,7 +11,7 @@ const StudyProgress: React.FC<StudyProgressProps> = ({ commits }) => {
 
 	return (
 		<div className={styles.studyProgressContainer}>
-			<h2 className={styles.title}>学习进度</h2>
+			<h2 className={styles.title}>学习进度--{slug}</h2>
 			<input
 				type='text'
 				placeholder='搜索提交记录...'

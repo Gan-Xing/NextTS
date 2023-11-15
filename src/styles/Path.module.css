@@ -1,111 +1,138 @@
+/* General Path Container Styles */
 .pathContainer {
 	display: flex;
-	align-items: center;
-	padding: 20px 0;
 	flex-wrap: wrap;
+	padding: 24px 32px;
+	justify-content: center;
+	width: 75rem;
 }
 
-.pathChildContent {
-	display: flex;
+/* Milestone Component Styles */
+.milestone {
+	margin: 16px;
+	padding: 10px;
+	/* border: 1px solid #efefef; */
+	border-radius: 3%;
+	transition: all 0.3s ease-in-out;
+	text-align: center;
+	flex-basis: 20%;
 }
-.pathChildSection {
-	display: flex;
-	border-radius: 0.625rem;
+
+/* Hover Effect - Flip the card */
+.milestone:hover .milestoneInner {
+	transform: rotateY(180deg);
+}
+
+.label {
+	display: block;
+	margin-top: 24px;
+	font-weight: 500;
+	font-size: 1.25rem;
+	color: rgb(35, 35, 35);
+	text-decoration: none;
+}
+
+.milestone:hover .label {
+	color: var(--main-color);
+}
+
+.milestoneInner {
+	position: relative;
+	width: 100%;
+	height: 200px; /* Adjust as needed */
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+}
+
+/* Front and Back Side of the Card */
+.milestoneFront,
+.milestoneBack {
+	position: absolute;
 	width: 100%;
 	height: 100%;
-}
-.pathChildCards {
-	width: 2rem;
-	height: 100%;
-	backdrop-filter: blur(8px); /* 毛玻璃效果 */
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 保留阴影以增加深度感 */
-	cursor: pointer;
-	font-size: 1.5rem;
-	transition: transform 0.3s ease-in-out;
+	backface-visibility: hidden;
+	border: 1px solid #efefef;
+	border-radius: 3%;
+	box-sizing: border-box;
 	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-	background-color: rgba(255, 255, 255, 0.15); /* 增加透明度 */
-}
-
-.pathChildCards.active {
-	flex: 1;
-	width: auto;
-	background-color: rgba(255, 255, 255, 0.15); /* 增加透明度 */
-}
-
-.pathChildCards:hover {
-	z-index: 1;
-	box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-	background-color: rgba(255, 255, 255, 0.15); /* 增加透明度 */
-}
-.pathChildCards span {
-	margin-top: 2.5rem;
-}
-
-.pathChildCards:hover span {
-	margin-top: 2.5rem;
-	transform: scale(1.2);
-	transition: transform 0.3s ease-in-out;
-	display: inline-block; /* 为了使transform作用于span元素 */
-}
-
-.pathChildCards.active:hover {
-	transform: scale(1); /* 对于激活状态的卡片，鼠标悬停时保持原始大小 */
-}
-
-.milestone {
-	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	align-items: center;
-	margin: 25px 0;
 }
 
-.card {
-	padding: 20px 40px;
-	background-color: var(--primary-colorb);
-	border-radius: 25px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	font-size: 18px;
-	color: var(--main-color);
-	transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* 添加 transform 到过渡效果中 */
-	cursor: pointer; /* “小手”样式 */
+.milestoneFront {
+	background-color: white;
 }
 
-.card:hover {
-	background-color: var(--secondary-colorp);
-	transform: scale(1.05); /* 悬停时放大卡片 */
+/* Back Side */
+.milestoneBack {
+	background-color: #dfe4e8;
+	transform: rotateY(180deg);
 }
 
-.arrow {
-	width: 50px; /* 略微调整箭头宽度以适应更大的箭头 */
-	height: 7px; /* 调整实线的高度 */
+/* Responsive Styles */
+@media screen and (max-width: 1200px) {
+	.pathContainer {
+		padding-top: 47px;
+	}
+	.milestone {
+		flex-basis: 35%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.pathContainer {
+		padding-top: 47px;
+	}
+	.milestone {
+		flex-basis: 50%;
+	}
+}
+
+/* Path.module.css */
+.pathChildSection {
+	width: 100%;
+	height: calc(100vh - 4.75rem); /* 与选项卡容器高度相同 */
+}
+
+.pathChildContainer {
+	display: flex;
+	padding: 24px 32px;
+	width: 100%;
 	position: relative;
-	background: var(--secondary-colory); /* 使用全局的黄色 */
-	margin: 0 auto; /* 使箭头居中 */
 }
 
-.arrow::after {
-	content: '';
-	position: absolute;
-	width: 14px; /* 调整三角形的宽度 */
-	height: 14px; /* 调整三角形的高度 */
-	right: -14px; /* 将箭头放置在实线之后 */
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: var(--secondary-colory); /* 使用全局的黄色 */
-	clip-path: polygon(100% 50%, 0 0, 0 100%); /* 创建右指向的三角形形状 */
+.tabsContainer {
+	flex-basis: 15%;
+	padding: 0.625rem;
+	min-width: 7rem;
+	max-width: 12.5rem;
+	border-right: 1px solid #ddd;
+	top: 4.5rem; /* 调整以避免被导航栏遮挡 */
+	left: 0;
+	overflow-y: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-	.card {
-		background-color: var(--secondary-colorp);
-		color: var(--main-color);
-	}
-	.card:hover {
-		background-color: var(--secondary-coloro);
-		transform: scale(1.05);
-	}
-	.arrow {
-		background-color: var(--secondary-coloro);
-	}
+.tab {
+	display: block;
+	width: 100%;
+	border: none;
+	background-color: transparent;
+	padding: 10px;
+	cursor: pointer;
+	text-align: left;
+}
+
+.tab:hover {
+	background-color: #f2f2f2;
+}
+
+.active {
+	background-color: #ddd;
+}
+
+.tabContent {
+	flex-grow: 1;
+	padding: 15px;
+	overflow-y: auto; /* 添加滚动条以适应内容 */
 }

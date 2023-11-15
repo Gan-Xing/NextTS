@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/Layout';
 import styles from '@/styles/Path.module.css';
-import { SlugProps } from '@/types';
+import { CommitProps, pathSlugProps } from '@/types';
 
 import { useState } from 'react';
 
@@ -10,47 +10,85 @@ import StudyContent from '@/components/StudyContent';
 import StudyPlan from '@/components/StudyPlan';
 import StudyProgress from '@/components/StudyProgress';
 import StudySummary from '@/components/StudySummary';
+import { fetchGitHubCommits } from '@/services';
 
-const SlugPage: React.FC<SlugProps> = ({ slug }) => {
-	const [activeIndex, setActiveIndex] = useState<number>(0); // 默认激活“学习内容”
+const SlugPage: React.FC<pathSlugProps> = ({ slug, commits }) => {
+	const [slugcommits, setSlugCommits] = useState([]);
+	const [activeTab, setActiveTab] = useState<
+		'StudyContent' | 'StudyPlan' | 'StudyProgress' | 'StudySummary'
+	>('StudyContent');
 
-	const components = [
-		{ component: <StudyContent key='StudyContent' />, label: '学习内容' },
-		{ component: <StudyPlan key='StudyPlan' />, label: '学习计划' },
-		{ component: <StudyProgress key='StudyProgress' />, label: '学习进度' },
-		{ component: <StudySummary key='StudySummary' />, label: '学习总结' }
-	];
+	const components: Record<
+		'StudyContent' | 'StudyPlan' | 'StudyProgress' | 'StudySummary',
+		JSX.Element
+	> = {
+		StudyContent: <StudyContent slug={slug} />,
+		StudyPlan: <StudyPlan slug={slug} />,
+		StudyProgress: <StudyProgress slug={slug} commits={commits} />,
+		StudySummary: <StudySummary slug={slug} />
+	};
 
 	return (
 		<Layout
 			contentClassName={styles.pathChildContent}
 			sectionClassName={styles.pathChildSection}>
-			{components.map(({ component, label }, index) => (
-				<div
-					key={index}
-					className={`${styles.pathChildCards} ${
-						index === activeIndex
-							? styles.active
-							: ''
-					}`}
-					onClick={() => setActiveIndex(index)}>
-					{index === activeIndex ? (
-						component
-					) : (
-						<span>{label}</span>
-					)}
+			<div className={styles.pathChildContainer}>
+				<div className={styles.tabsContainer}>
+					{Object.keys(components).map((key) => (
+						<button
+							key={key}
+							className={`${styles.tab} ${
+								activeTab === key
+									? styles.active
+									: ''
+							}`}
+							onClick={() =>
+								setActiveTab(
+									key as
+										| 'StudyContent'
+										| 'StudyPlan'
+										| 'StudyProgress'
+										| 'StudySummary'
+								)
+							}>
+							{key.replace('Study', '')}
+						</button>
+					))}
 				</div>
-			))}
+				<div className={styles.tabContent}>
+					{components[activeTab]}
+				</div>
+			</div>
 		</Layout>
 	);
 };
 
-export const getServerSideProps: GetServerSideProps<SlugProps> = async ({ params }) => {
-	const slug = params?.slug as string;
+export const getServerSideProps: GetServerSideProps<pathSlugProps> = async (context) => {
+	const { slug } = context.query;
+	const commitsUrls = context.query.commitsUrls as string;
+
+	let combinedCommits: CommitProps[] = [];
+	if (commitsUrls) {
+		// 分割 commitsUrls 字符串为单独的 URL
+		const urls = commitsUrls.split(',');
+
+		for (const url of urls) {
+			const repoCommits = await fetchGitHubCommits(url.trim());
+			combinedCommits = [...combinedCommits, ...repoCommits];
+		}
+
+		// 按日期排序...
+		combinedCommits.sort((a, b) => {
+			const dateA = new Date(a.commit.author.date);
+			const dateB = new Date(b.commit.author.date);
+			return dateB.getTime() - dateA.getTime();
+		});
+	}
 
 	return {
 		props: {
-			slug
+			slug,
+			commits: combinedCommits
 		}
 	};
 };

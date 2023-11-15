@@ -1,3 +1,3 @@
 export interface SlugProps {
-	slug: string;
+	slug: string | string[] | undefined;
 }
