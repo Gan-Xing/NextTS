@@ -4,33 +4,29 @@ import { MilestoneData, MilestoneProps } from '@/types';
 import Link from 'next/link';
 
 const milestones: MilestoneData[] = [
-	{ id: 1, label: 'HTML+CSS', slug: 'html-css', commits: [] },
-	{ id: 2, label: 'JavaScript', slug: 'javascript', commits: [] },
-	{ id: 3, label: 'Ajax', slug: 'ajax', commits: [] },
-	{ id: 4, label: 'ES6', slug: 'es6', commits: [] },
-	{ id: 5, label: 'HomeBrew', slug: 'homebrew', commits: [] },
-	{ id: 6, label: 'NPM', slug: 'npm', commits: [] },
-	{ id: 7, label: 'Gulp', slug: 'gulp', commits: [] },
-	{ id: 8, label: 'Git', slug: 'git', commits: [] },
+	{ id: 1, label: 'HTML+CSS', slug: 'html-css' },
+	{ id: 2, label: 'JavaScript', slug: 'javascript' },
+	{ id: 3, label: 'Ajax', slug: 'ajax' },
+	{ id: 4, label: 'ES6', slug: 'es6' },
+	{ id: 5, label: 'HomeBrew', slug: 'homebrew' },
+	{ id: 6, label: 'NPM', slug: 'npm' },
+	{ id: 7, label: 'Gulp', slug: 'gulp' },
+	{ id: 8, label: 'Git', slug: 'git' },
 	{
 		id: 9,
 		label: 'React',
-		slug: 'react',
-		commits: []
+		slug: 'react'
 	},
 	{
 		id: 10,
 		label: '物流项目',
-		slug: 'logimate',
-		commits: ['Gan-Xing/Antdpro6', 'Gan-Xing/NestJSAntdpro6']
+		slug: 'logimate'
 	}
 ];
 
-const Milestone: React.FC<MilestoneProps> = ({ label, slug, commitsUrls }) => {
+const Milestone: React.FC<MilestoneProps> = ({ label, slug }) => {
 	return (
-		<Link
-			className={styles.milestone}
-			href={`/path/${slug}?commitsUrls=${commitsUrls.join(',')}`}>
+		<Link className={styles.milestone} href={`/path/${slug}`}>
 			<div className={styles.milestoneInner}>
 				<div className={styles.milestoneFront}>
 					<h2 className={styles.label}>{label}</h2>
@@ -53,7 +49,6 @@ const Path = () => {
 						key={milestone.id}
 						label={milestone.label}
 						slug={milestone.slug}
-						commitsUrls={milestone.commits}
 					/>
 				))}
 			</div>

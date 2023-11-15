@@ -1,22 +1,34 @@
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/Layout';
 import styles from '@/styles/Path.module.css';
-import { CommitProps, pathSlugProps } from '@/types';
-
-import { useState } from 'react';
+import { GitHubCommit, SlugProps } from '@/types';
+import { useEffect, useState } from 'react';
 
 // 导入你的组件
 import StudyContent from '@/components/StudyContent';
 import StudyPlan from '@/components/StudyPlan';
 import StudyProgress from '@/components/StudyProgress';
 import StudySummary from '@/components/StudySummary';
-import { fetchGitHubCommits } from '@/services';
 
-const SlugPage: React.FC<pathSlugProps> = ({ slug, commits }) => {
-	const [slugcommits, setSlugCommits] = useState([]);
+const SlugPage: React.FC<SlugProps> = ({ slug }) => {
 	const [activeTab, setActiveTab] = useState<
 		'StudyContent' | 'StudyPlan' | 'StudyProgress' | 'StudySummary'
 	>('StudyContent');
+	const [slugCommits, setSlugCommits] = useState<GitHubCommit[]>([]);
+	useEffect(() => {
+		const fetchCommits = async () => {
+			const response = await fetch(`/api/commits/${slug}`);
+			const data = await response.json();
+			setSlugCommits(data.commits);
+		};
+		console.log('====1');
+
+		if (slug) {
+			console.log('====2');
+			fetchCommits();
+		}
+	}, [slug]);
+	console.log('====3');
 
 	const components: Record<
 		'StudyContent' | 'StudyPlan' | 'StudyProgress' | 'StudySummary',
@@ -24,7 +36,7 @@ const SlugPage: React.FC<pathSlugProps> = ({ slug, commits }) => {
 	> = {
 		StudyContent: <StudyContent slug={slug} />,
 		StudyPlan: <StudyPlan slug={slug} />,
-		StudyProgress: <StudyProgress slug={slug} commits={commits} />,
+		StudyProgress: <StudyProgress slug={slug} commits={slugCommits} />,
 		StudySummary: <StudySummary slug={slug} />
 	};
 
@@ -63,32 +75,19 @@ const SlugPage: React.FC<pathSlugProps> = ({ slug, commits }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps<pathSlugProps> = async (context) => {
-	const { slug } = context.query;
-	const commitsUrls = context.query.commitsUrls as string;
+export const getServerSideProps: GetServerSideProps<SlugProps> = async (context) => {
+	const slug = context.params?.slug;
 
-	let combinedCommits: CommitProps[] = [];
-	if (commitsUrls) {
-		// 分割 commitsUrls 字符串为单独的 URL
-		const urls = commitsUrls.split(',');
-
-		for (const url of urls) {
-			const repoCommits = await fetchGitHubCommits(url.trim());
-			combinedCommits = [...combinedCommits, ...repoCommits];
-		}
-
-		// 按日期排序...
-		combinedCommits.sort((a, b) => {
-			const dateA = new Date(a.commit.author.date);
-			const dateB = new Date(b.commit.author.date);
-			return dateB.getTime() - dateA.getTime();
-		});
+	if (!slug || typeof slug !== 'string') {
+		// 处理 slug 不存在的情况
+		return {
+			notFound: true
+		};
 	}
 
 	return {
 		props: {
-			slug,
-			commits: combinedCommits
+			slug
 		}
 	};
 };

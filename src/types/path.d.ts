@@ -4,23 +4,21 @@ export interface MilestoneData {
 	id: number;
 	label: string;
 	slug: string;
-	commits: string[];
 }
 export interface MilestoneProps {
 	label: string;
 	slug: string;
-	commitsUrls: string[];
 }
 
 export interface LogimateProps extends SlugProps {
-	commits: CommitProps[];
+	commits: GitHubCommit[];
 }
 
 export interface pathSlugProps extends SlugProps {
-	commits: CommitProps[];
+	commits: GitHubCommit[];
 }
 
-export interface CommitProps {
+export interface GitHubCommit {
 	sha: string;
 	commit: {
 		message: string;
@@ -33,7 +31,7 @@ export interface CommitProps {
 }
 
 export interface StudyProgressProps extends SlugProps {
-	commits?: CommitProps[];
+	commits?: GitHubCommit[];
 }
 
 export interface StudyContentProps extends SlugProps {}
@@ -41,3 +39,7 @@ export interface StudyContentProps extends SlugProps {}
 export interface StudyPlanProps extends SlugProps {}
 
 export interface StudySummaryProps extends SlugProps {}
+
+export interface ResponseCommit {
+	commits: GitHubCommit[];
+}
