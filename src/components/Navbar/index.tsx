@@ -1,11 +1,11 @@
-import NavLogo from '@/components/Navbar/NavLogo';
-import NavList from '@/components/Navbar/NavList';
 import styles from '@/styles/Navbar.module.css';
-import { useState } from 'react';
-import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
-import { NavLinkProps } from '@/types';
+import { FunctionComponent, useState } from 'react';
+import { FaBars, FaSearch, FaShoppingBag } from 'react-icons/fa';
+import { NavItemProps } from '@/types';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const navLinks: NavLinkProps[] = [
+const navItems: NavItemProps[] = [
 	{
 		component: 'Home',
 		url: '/'
@@ -33,16 +33,24 @@ const navLinks: NavLinkProps[] = [
 	{
 		component: 'About',
 		url: '/about'
-	},
-	{
-		component: <FaUser />,
-		url: '/login'
-	},
-	{
-		component: <FaShoppingCart />,
-		url: '/cart'
 	}
 ];
+
+const NavLogo = () => {
+	return (
+		<Link className={`${styles.navItem} ${styles.navButton}`} href='/' passHref>
+			<Image src='/logo.svg' alt='Logo' width={32} height={32} />
+		</Link>
+	);
+};
+
+const NavItem: FunctionComponent<NavItemProps> = ({ component, url }) => {
+	return (
+		<Link className={`${styles.navItem} ${styles.navLink}`} href={url}>
+			{component}
+		</Link>
+	);
+};
 
 const Navbar = () => {
 	const [isNavListVisible, setIsNavListVisible] = useState(true);
@@ -55,9 +63,27 @@ const Navbar = () => {
 		<nav className={styles.navbar}>
 			<div className={styles.navbarContainer}>
 				<NavLogo />
-				<NavList navLinks={navLinks} isVisible={isNavListVisible} />
-				<div className={styles.hamburger} onClick={toggleNavList}>
-					<FaBars />
+				{navItems.map((link) => (
+					<NavItem
+						key={link.url}
+						component={link.component}
+						url={link.url}
+					/>
+				))}
+				<div className={`${styles.navItem} ${styles.navButtons}`}>
+					<div
+						className={`${styles.navItem} ${styles.navButton}`}>
+						<FaSearch />
+					</div>
+					<div
+						className={`${styles.navItem} ${styles.navButton}`}>
+						<FaShoppingBag />
+					</div>
+					<div
+						className={`${styles.navItem} ${styles.navButton} ${styles.hamburger}`}
+						onClick={toggleNavList}>
+						<FaBars />
+					</div>
 				</div>
 			</div>
 		</nav>
