@@ -4,10 +4,10 @@
 	height: 100%;
 }
 .content {
-	margin: 4.5rem 1rem 1rem;
+	margin: 2.75rem 1rem 0rem;
 	display: flex;
-	flex: 1;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	flex: 1;
 }
