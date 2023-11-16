@@ -21,14 +21,10 @@ const SlugPage: React.FC<SlugProps> = ({ slug }) => {
 			const data = await response.json();
 			setSlugCommits(data.commits);
 		};
-		console.log('====1');
-
 		if (slug) {
-			console.log('====2');
 			fetchCommits();
 		}
 	}, [slug]);
-	console.log('====3');
 
 	const components: Record<
 		'StudyContent' | 'StudyPlan' | 'StudyProgress' | 'StudySummary',
