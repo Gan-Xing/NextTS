@@ -1,0 +1,31 @@
+.signupForm {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+}
+
+.row {
+	display: flex;
+}
+
+.formControl {
+	flex: 1;
+}
+
+.signupContainer {
+	padding: 2rem;
+}
+
+.phoneNumberInput,
+.verification {
+	flex: 2;
+}
+
+.captchaImage {
+	cursor: pointer;
+}
+
+.button {
+	height: 2.5rem;
+}
