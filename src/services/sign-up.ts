@@ -4,6 +4,7 @@ import myfetch from './myfech'; // 确保正确导入 myfetch
 const getCAPTCHAUrl = '/nestapi/captcha';
 const validateCaptchaUrl = '/nestapi/auth/validateCaptcha';
 const validateEmailTokenUrl = '/nestapi/auth/validateEmail';
+const validateSMSlTokenUrl = '/nestapi/auth/validateSMS';
 const signUpUrl = '/nestapi/register';
 
 // 获取验证码
@@ -22,6 +23,14 @@ export async function validateCaptcha(formData: SignUpFormData) {
 // 验证邮箱验证码
 export async function validateEmail(data: { token: string; phone: string; code: string }) {
 	return myfetch(validateEmailTokenUrl, {
+		method: 'POST',
+		data: data // myfetch 将处理 JSON.stringify
+	});
+}
+
+// 验证短信验证码
+export async function validateSMS(data: { token: string; phone: string; code: string }) {
+	return myfetch(validateSMSlTokenUrl, {
 		method: 'POST',
 		data: data // myfetch 将处理 JSON.stringify
 	});

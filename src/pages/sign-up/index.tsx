@@ -17,12 +17,21 @@ import {
 } from '@material-ui/core';
 import Layout from '@/components/Layout';
 import styles from '@/styles/SignUp.module.css';
-import { fetchCaptcha, validateCaptcha, validateEmail } from '@/services';
+import { fetchCaptcha, validateCaptcha, validateEmail, validateSMS } from '@/services';
 import { InitialSignUpForm } from '@/types';
-import { MySessionStorage } from '@/utils';
+import {
+	MySessionStorage,
+	setEmailParams,
+	setPhoneToken,
+	getEmailParams,
+	getPhoneNumber,
+	getPhoneToken,
+	setToken
+} from '@/utils';
+import { useRouter } from 'next/router';
 
 const getSteps = () => {
-	return ['注册', '邮箱验证', '第三步'];
+	return ['注册', '邮箱验证', '短信验证'];
 };
 
 const getStepContent = (stepIndex: number, handleNext: () => void, handleBack: () => void) => {
@@ -32,7 +41,7 @@ const getStepContent = (stepIndex: number, handleNext: () => void, handleBack: (
 		case 1:
 			return <ValidateEmail handleNext={handleNext} />;
 		case 2:
-			return '第三步的内容...';
+			return <ValidateSMS />;
 		default:
 			return '未知步骤';
 	}
@@ -93,14 +102,10 @@ const SignUpForm: React.FC<{ handleNext: () => void }> = ({ handleNext }) => {
 			const { data } = await validateCaptcha(payload);
 
 			if (data.isValid) {
-				MySessionStorage.setItem(
-					'phoneParams',
-					{
-						token: data.token,
-						phone: payload.phoneNumber
-					},
-					300
-				);
+				setEmailParams({
+					phone: payload.phoneNumber,
+					token: data.token
+				});
 				handleNext();
 			} else {
 				console.error('Invalid captcha');
@@ -365,15 +370,16 @@ const ValidateEmail: React.FC<{ handleNext: () => void }> = ({ handleNext }) => 
 
 	// ValidateEmail 组件中
 	const handleSubmit = async () => {
-		const phoneParams = MySessionStorage.getItem('phoneParams');
+		const phoneParams = getEmailParams();
 		const emailCode = code.join(''); // 将用户输入的验证码数组转换为字符串
 		try {
 			const { data } = await validateEmail({
-				token: phoneParams.token,
-				phone: phoneParams.phone,
+				token: phoneParams[0],
+				phone: phoneParams[1],
 				code: emailCode
 			});
 			if (data.isValid) {
+				setPhoneToken(data.token);
 				handleNext();
 			} else {
 				// 处理验证失败的情况
@@ -411,6 +417,87 @@ const ValidateEmail: React.FC<{ handleNext: () => void }> = ({ handleNext }) => 
 				onClick={handleSubmit}
 				disabled={!isCodeComplete}>
 				继续
+			</Button>
+		</Box>
+	);
+};
+
+const ValidateSMS = () => {
+	const [code, setCode] = useState(Array(6).fill(''));
+	const [isCodeComplete, setIsCodeComplete] = useState(false);
+	const router = useRouter();
+
+	// 当验证码输入完成时，检查是否所有输入框都填满了
+	useEffect(() => {
+		setIsCodeComplete(code.every((c) => c.length === 1));
+	}, [code]);
+
+	const handleChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newCode = [...code];
+		newCode[index] = e.target.value.slice(0, 1);
+		setCode(newCode);
+
+		// 自动跳转到下一个输入框
+		if (e.target.value && index < 5) {
+			const nextSibling = document.querySelector(
+				`input[name='code${index + 1}']`
+			);
+			if (nextSibling) {
+				(nextSibling as HTMLInputElement).focus();
+			}
+		}
+	};
+
+	// ValidateSMS 组件中
+	const handleSubmit = async () => {
+		const phoneToken = getPhoneToken();
+		const phoneNumber = getPhoneNumber();
+		const smsCode = code.join(''); // 将用户输入的验证码数组转换为字符串
+		try {
+			const { data } = await validateSMS({
+				token: phoneToken,
+				phone: phoneNumber,
+				code: smsCode
+			});
+			if (data.isValid) {
+				setToken(data.token);
+				router.push('/');
+			} else {
+				// 处理验证失败的情况
+				console.error('Invalid phone verification code');
+			}
+		} catch (error) {
+			console.error('Error validating phone token:', error);
+		}
+	};
+
+	return (
+		<Box display='flex' flexDirection='column' alignItems='center'>
+			<Box display='flex' justifyContent='center' mb={2}>
+				{code.map((c, index) => (
+					<TextField
+						key={index}
+						name={`code${index}`}
+						variant='outlined'
+						inputProps={{
+							maxLength: 1,
+							style: { textAlign: 'center' }
+						}}
+						value={c}
+						onChange={handleChange(index)}
+						style={{
+							margin: '0 4px',
+							width: '40px'
+						}}
+					/>
+				))}
+			</Box>
+			<Button
+				variant='contained'
+				color='primary'
+				onClick={handleSubmit}
+				disabled={!isCodeComplete}>
+				提交
 			</Button>
 		</Box>
 	);

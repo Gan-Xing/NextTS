@@ -318,14 +318,14 @@ const Navbar = () => {
 									className={
 										styles.profileLink
 									}
-									href='/signup'>
-									Sign Up
+									href='/sign-up'>
+									Account
 								</Link>
 								<Link
 									className={
 										styles.profileLink
 									}
-									href='/'>
+									href='/sign-in'>
 									Sign In
 								</Link>
 							</ul>

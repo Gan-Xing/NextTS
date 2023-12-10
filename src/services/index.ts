@@ -1,2 +1,2 @@
 export * from './githubService';
-export * from './signup';
+export * from './sign-up';
