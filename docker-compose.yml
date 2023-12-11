@@ -11,3 +11,4 @@ services:
                               - GITHUB_TOKEN=${GITHUB_TOKEN}
                     env_file:
                               - ./.env
+                    restart: always
