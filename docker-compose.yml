@@ -9,6 +9,6 @@ services:
                               - '4000:4000'
                     environment:
                               - GITHUB_TOKEN=${GITHUB_TOKEN}
-                    env_file:
-                              - ./.env
+                    # env_file:
+                    #           - ./.env
                     restart: always
