@@ -48,8 +48,8 @@ dependencies:
     specifier: ^2.4.5
     version: 2.4.5(react@18.2.0)
   ganxing:
-    specifier: ^0.0.15
-    version: 0.0.15
+    specifier: ^0.0.17
+    version: 0.0.17
   next:
     specifier: 14.0.2
     version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
@@ -1978,8 +1978,8 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: false
 
-  /ganxing@0.0.15:
-    resolution: {integrity: sha512-5Tms331mu326OY2upDy15xqL9SHxIoTWa81jiKXDSWgr2Rni9mUl5q17ySQHY5TbzpqgNUr5KyM2vmP0ITyU7A==}
+  /ganxing@0.0.17:
+    resolution: {integrity: sha512-qbghDTnxUMZgPoxnX8lKbepZ/84W90bcH3heVg151lXMUhwgMH4nyMINsyn6+pFrtLEgeZAkFgFuqgcYdBvVLA==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     dependencies:
       flv.js: 1.6.2

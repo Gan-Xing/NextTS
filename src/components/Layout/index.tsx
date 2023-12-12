@@ -15,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({
 			<Head>
 				<title>My Website</title>
 				<meta name='description' content='Welcome to my website' />
-				<link rel='icon' href='/favicon.webp' />
+				<link rel='icon' href='/logoBig.svg' />
 			</Head>
 			<div className={`${styles.container} ${containerClassName}`}>
 				<Navbar />

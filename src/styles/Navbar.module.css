@@ -176,3 +176,32 @@
 .profileLink {
 	margin: 0.25rem 0;
 }
+
+.logoItems {
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* 保持子元素在水平方向上居中 */
+	font-size: 1rem;
+	position: relative; /* 设置相对定位作为子元素的参考 */
+}
+
+.GANYI,
+.COMPANY {
+	flex: 0 0 auto; /* 防止元素伸缩 */
+	text-align: center; /* 文本居中 */
+	white-space: nowrap; /* 防止文本换行 */
+	position: absolute; /* 绝对定位 */
+	min-width: 3rem;
+	left: 0.5rem;
+}
+
+.GANYI {
+	bottom: 50%; /* GANYI 靠下对齐 */
+	transform: translateY(20%); /* 向下微调位置 */
+}
+
+.COMPANY {
+	top: 50%; /* &COMPANY 向上对齐 */
+	transform: translateY(-20%) scale(0.55); /* 向上微调位置并缩放 */
+	left: -0.85rem;
+}

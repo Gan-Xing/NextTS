@@ -38,8 +38,16 @@ const navItems: NavItems[] = [
 
 const NavLogo = () => {
 	return (
-		<Link className={`${styles.navItem} ${styles.navButton}`} href='/' passHref>
-			<Image src='/logo.svg' alt='Logo' width={32} height={32} />
+		// <Link className={`${styles.navItem} ${styles.navButton}`} href='/' passHref>
+		// 	<Image src='/logo.svg' alt='Logo' width={32} height={32} />
+		// </Link>
+		<Link
+			className={`${styles.navItem} ${styles.navButton} ${styles.logoItems}`}
+			href='/'
+			passHref>
+			{/* <Image src='/logo.svg' alt='Logo' width={32} height={32} /> */}
+			<span className={styles.GANYI}>GANYI</span>
+			<span className={styles.COMPANY}>&COMPANY</span>
 		</Link>
 	);
 };
