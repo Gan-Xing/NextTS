@@ -64,6 +64,23 @@ const SignIn: React.FC = () => {
 		setLoginMethod(newValue);
 	};
 
+	const handleQRCodeLogin = async () => {
+		setShowQRCode(!showQRCode);
+		if (!showQRCode) {
+			try {
+				const response = await fetch(
+					'/api/auth/wechat-miniprogram-qrcode'
+				);
+				const data = await response.json();
+				if (data && data.qrCodeUrl) {
+					setQrCodeUrl(data.qrCodeUrl);
+				}
+			} catch (error) {
+				console.error('Error fetching QR code:', error);
+			}
+		}
+	};
+
 	return (
 		<Layout>
 			<Grid
@@ -86,10 +103,8 @@ const SignIn: React.FC = () => {
 							display='flex'
 							justifyContent='flex-end'>
 							<IconButton
-								onClick={() =>
-									setShowQRCode(
-										!showQRCode
-									)
+								onClick={
+									handleQRCodeLogin
 								}>
 								<QrCode2 />
 							</IconButton>
@@ -188,7 +203,7 @@ const SignIn: React.FC = () => {
 									<Typography
 										variant='h5'
 										align='center'>
-										二维码扫码登录
+										微信扫码登录
 									</Typography>
 									{qrCodeUrl ? (
 										<Image

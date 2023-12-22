@@ -1,0 +1,11 @@
+
+> web@0.0.1 build /Users/ganxing/Desktop/项目/个人项目/学习项目/Turborepo/apps/NextTS
+> next build
+
+   Linting and checking validity of types ...
+   ▲ Next.js 14.0.2
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Collecting page data ...
