@@ -17,30 +17,30 @@
    Collecting build traces ...
 
 Route (pages)                              Size     First Load JS
-┌ ○ /                                      2.15 kB        88.8 kB
-├   /_app                                  0 B            82.8 kB
-├ ○ /404                                   2.27 kB        88.9 kB
+┌ ○ /                                      2.15 kB        88.9 kB
+├   /_app                                  0 B            82.9 kB
+├ ○ /404                                   2.27 kB          89 kB
 ├   └ css/a7eb2bedc5d24041.css             1.34 kB
-├ ○ /about                                 2.15 kB        88.8 kB
-├ ○ /account                               2.15 kB        88.8 kB
-├ λ /api/commits/[slug]                    0 B            82.8 kB
-├ λ /api/hello                             0 B            82.8 kB
-├ ○ /insights                              2.16 kB        88.8 kB
-├ ○ /interview                             2.15 kB        88.8 kB
-├ ○ /path                                  2.66 kB        89.3 kB
+├ ○ /about                                 2.15 kB        88.9 kB
+├ ○ /account                               2.15 kB        88.9 kB
+├ λ /api/commits/[slug]                    0 B            82.9 kB
+├ λ /api/hello                             0 B            82.9 kB
+├ ○ /insights                              2.16 kB        88.9 kB
+├ ○ /interview                             2.15 kB        88.9 kB
+├ ○ /path                                  2.66 kB        89.4 kB
 ├   └ css/d66ed7c5e2628705.css             1.69 kB
-├ λ /path/[slug]                           3.15 kB        89.8 kB
+├ λ /path/[slug]                           3.15 kB        89.9 kB
 ├   └ css/127ee838498c2bc4.css             1.91 kB
-├ ○ /projects                              2.16 kB        88.8 kB
-├ ○ /resources                             2.16 kB        88.8 kB
-├ ○ /sign-in                               65.3 kB         166 kB
-└ ○ /sign-up                               215 kB          316 kB
+├ ○ /projects                              2.16 kB        88.9 kB
+├ ○ /resources                             2.16 kB        88.9 kB
+├ ○ /sign-in                               16.5 kB         156 kB
+└ ○ /sign-up                               263 kB          403 kB
     └ css/3ccc5667ebab64d3.css             1.27 kB
-+ First Load JS shared by all              83.4 kB
++ First Load JS shared by all              83.5 kB
   ├ chunks/framework-6618fcfaf8cc4c2e.js   45.2 kB
   ├ chunks/main-5f709ab27de53ff2.js        36.3 kB
   ├ chunks/pages/_app-73d32d6f7c4647dc.js  298 B
-  ├ chunks/webpack-c4acd79e87956a0e.js     943 B
+  ├ chunks/webpack-36d12a75f0098f30.js     1.04 kB
   └ css/afda52bb58e8ecbd.css               556 B
 
 ○  (Static)   prerendered as static content
