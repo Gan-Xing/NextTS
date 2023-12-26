@@ -1,4 +1,4 @@
-import { encrypt, decrypt } from 'ganxing';
+import { encrypt, decrypt } from '@ganxing/utils';
 
 const SecretKey = process.env.SecretKey;
 const SecretIV = process.env.SecretIV;

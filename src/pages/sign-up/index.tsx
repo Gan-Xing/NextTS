@@ -14,7 +14,8 @@ import {
 	InputLabel,
 	Paper,
 	Box
-} from '@material-ui/core';
+} from '@mui/material';
+
 import Layout from '@/components/Layout';
 import styles from '@/styles/SignUp.module.css';
 import { fetchCaptcha, validateCaptcha, validateEmail, validateSMS } from '@/services';

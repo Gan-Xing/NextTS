@@ -24,37 +24,13 @@ import {
 	VisibilityOff,
 	Visibility
 } from '@mui/icons-material';
-import { makeStyles } from '@mui/styles';
 import Image from 'next/image';
-
-const useStyles = makeStyles((theme) => ({
-	tabItem: {
-		flex: 1 // 使标签平均分配宽度
-	},
-	button: {
-		margin: '8px' // 直接使用像素值
-	},
-	divider: {
-		margin: '16px'
-	},
-	iconButton: {
-		margin: '8px'
-	},
-	qrCodeContainer: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
-		flex: 1
-	}
-}));
 
 const SignIn: React.FC = () => {
 	const [loginMethod, setLoginMethod] = useState('email');
 	const [showQRCode, setShowQRCode] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
-	const classes = useStyles();
 
 	const handlePasswordVisibility = () => {
 		setShowPassword(!showPassword);
@@ -119,13 +95,17 @@ const SignIn: React.FC = () => {
 										handleChange
 									}
 									aria-label='登录方式'
-									variant='fullWidth'>
+									variant='fullWidth'
+									sx={{
+										'.MuiTab-root':
+											{
+												// Applying styles to all Tab components inside Tabs
+												flex: 1
+											}
+									}}>
 									<Tab
 										label='邮箱登录'
 										value='email'
-										className={
-											classes.tabItem
-										}
 										icon={
 											<Email />
 										}
@@ -133,9 +113,6 @@ const SignIn: React.FC = () => {
 									<Tab
 										label='手机号登录'
 										value='phone'
-										className={
-											classes.tabItem
-										}
 										icon={
 											<Phone />
 										}
@@ -184,17 +161,23 @@ const SignIn: React.FC = () => {
 									variant='contained'
 									color='primary'
 									fullWidth
-									className={
-										classes.button
-									}>
+									sx={{
+										margin: '8px'
+									}}>
 									登录
 								</Button>
 							</>
 						) : (
 							<Box
-								className={
-									classes.qrCodeContainer
-								}>
+								sx={{
+									display: 'flex',
+									flexDirection:
+										'column',
+									alignItems: 'center',
+									justifyContent:
+										'center',
+									flex: 1
+								}}>
 								<Stack
 									spacing={
 										2

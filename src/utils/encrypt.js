@@ -1,4 +1,4 @@
-import { randomBytes } from "ganxing";
+import { randomBytes } from "@ganxing/utils";
 
 // 密钥长度取决于你的加密算法。对于 AES-256-GCM, 使用 32 字节 (256 位) 长度。
 function generateKey(keySize = 32) {

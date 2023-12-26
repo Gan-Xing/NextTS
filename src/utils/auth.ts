@@ -1,4 +1,4 @@
-import { getLocal, setLocals, removeLocals, setLocal, getLocals } from 'ganxing';
+import { getLocal, setLocals, removeLocals, setLocal, getLocals } from '@ganxing/utils';
 
 enum TokenKeys {
 	Access = 'ACCESS_TOKEN',
